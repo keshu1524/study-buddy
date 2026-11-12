@@ -228,3 +228,8 @@ npm.cmd run dev        → http://localhost:5173/
   - repo: `github.com/keshu1524/keshu1524.github.io` — **build का backup** (dist 10 files); स्रोत-कोड backup बाकी बाद में चाहे तो
 - **अब तीनों घर**: Vercel `keshu-study-buddy.vercel.app` (मुख्य, deploy आसान) · GitHub `keshu1524.github.io` (backup-host, ISP-block का विकल्प) · Netlify (credits 2 Dec तक बंद, पर पुराना-नवीनतम build चलता है)
 - deploy-रीपीट के लिए नियम: `npm run build` → `cd dist` → `git add -A; git commit; git push` (repo .git अंदर ही dist में) → दोनों Vercel+GitHub चाहें तो अलग-अलग
+
+### 13 Nov (सत्र-2s): 🗂 source-code repo भी (kharcha-app जैसा repo page) ✅
+- User की चाह: kharcha-app जैसा repo-page link भी — बनाया **github.com/keshu1524/study-buddy** (public): पूरा source (src 14 pages, public, data/study-data.json, configs, PROJECT-STATUS.md भी!) — root .git init + .gitignore (node_modules/dist/.vercel/.env.local) + git-config global (keshu1524) + push main ✅
+- अब दो repos: `keshu1524.github.io` (सिर्फ build backup/dist) व `study-buddy` (स्रोत-कोड) — आगे हर बदलाव पर: root-commit-push (स्रोत) + dist-commit-push (build)
+- ध्यान दिलाया: source repo public है → `data/study-data.json` में user की personal study-progress भी दिखेगी (चाहे तो repo private कर सकते/data निकाल सकते — user का फैसला)

@@ -60,6 +60,8 @@ function fileStorage() {
 }
 
 export default defineConfig({
+  // 🐙 GitHub Pages sub-path deploy ke liye base (https://keshu1524.github.io/study-buddy/)
+  base: '/study-buddy/',
   plugins: [react(), fileStorage()],
   server: {
     host: true, // 📱 phone se access: http://<PC-IP>:5173 (Network URL terminal me dikhta hai)
