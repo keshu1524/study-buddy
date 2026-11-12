@@ -242,3 +242,10 @@ npm.cmd run dev        → http://localhost:5173/
 - **Vercel साफी**: vercel.json + .vercel/ + .env.local delete; **project `keshu-study-buddy` deleted** (`vercel project rm --confirm-name`) ✅ — अब वर्सेल से कोई संबंध नहीं
 - **फाइनल URL: `https://keshu1524.github.io/study-buddy/`** — अब हर `git push` पर Actions खुद build+deploy (सिर्फ source repo study-buddy, Pages उसी से)
 - आगे deploy-नियम: बस root में `git add -A; git commit -m "..."; git push` — 1-2 मिनट में live। dist/ अब बिल्कुल नहीं धकेलना (workflow खुद बनाता है)
+
+### 13 Nov (सत्र-2u): 📝 Notes page में पूरा material — longs से 54 chapter-notes + merge-loader ✅
+- User का सही निदान (screenshot + सवाल-जवाब): app चल रही थी, पर **Notes page में सिर्फ़ 2 starter notes** — पूरा 54-topic material नहीं (material लंबे उत्तर/Q&A/MindMaps में था, notes नहीं)
+- **`src/default-data.json` के notes अब 54** — हर long-answer topic से note: `{id:'note-<chapter>', subject, title (topic, 'Long Answer:' prefix हटा), body (points \n-joined), updatedAt}`; seeds n1/n2 device में रहेंगे
+- **store.jsx: `loadNotesMerged()`** — device notes रखो + DEF के missing-id notes जोड़ो + merged save; कोई delete नहीं (यूज़र-डेटा नियम ✅); `useState(loadNotesMerged)`
+- Build 549KB (chunk >500kB warning — ठीक है, single-bundle सादगी बरक़ार); push `9df9016` → Actions run success → **live verify: `note-*` ids 54 occurrences in bundle** ✅
+- अब Notes page: 56 notes (2 starter + 54 chapter) — subject-filter और search से सब मिलेगा; phone पर भी वही (sub-path deploy के साथ)
