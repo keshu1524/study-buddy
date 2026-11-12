@@ -249,3 +249,11 @@ npm.cmd run dev        → http://localhost:5173/
 - **store.jsx: `loadNotesMerged()`** — device notes रखो + DEF के missing-id notes जोड़ो + merged save; कोई delete नहीं (यूज़र-डेटा नियम ✅); `useState(loadNotesMerged)`
 - Build 549KB (chunk >500kB warning — ठीक है, single-bundle सादगी बरक़ार); push `9df9016` → Actions run success → **live verify: `note-*` ids 54 occurrences in bundle** ✅
 - अब Notes page: 56 notes (2 starter + 54 chapter) — subject-filter और search से सब मिलेगा; phone पर भी वही (sub-path deploy के साथ)
+
+### 13 Nov (सत्र-2v): 🃏 Flashcards + 📊 Quizzes में भी पूरा material ✅
+- User का अगला निर्देश "ab quiz, flashcard, mind maps" — MindMaps में पहले से 54 थे; cards (4) व quizzes (1) ही पतले थे
+- **54 flashcards**: qna के 54 सवालों से `{id:'card-<chapter>', subject (chapter-prefix→subject map: eng/pol/geo), front (q, 160-char trim), back (first 3 points, 300-char trim)}`
+- **3 subject-quizzes × 15 MCQ**: mindmap-pairs से (branch→child प्रश्न, "Which point comes under X?" / हिंदी-विषयों पर हिंदी) — distractors उसी subject के labels से, shuffled; ids quiz-english/quiz-pol./quiz-geography; seed-q1 बरक़ार
+- **store.jsx: सामान्य `loadMerged(defKey)`** — notes/cards/quizzes/mindmaps चारों merge-by-id (device items रखो + DEF के missing जोड़ो + save; delete कभी नहीं); loadNotesMerged अब wrapper
+- Push `d4db51b` → Actions success → **live verify**: JS `index-BirF785F.js`, card-* 54, तीनों quiz ids + MCQ text bundle में ✅
+- Flashcards का SRS (cardsched) नए cards पर भी चलेगा; Quiz page अब 4 क्विज़ दिखाएगा
