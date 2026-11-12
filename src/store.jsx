@@ -17,23 +17,28 @@ function loadOrDef(key, defKey) {
   return DEF[defKey] || []
 }
 
-// 📝 Notes विशेष: device notes रखो, bundled के missing-id notes जोड़ दो (कभी delete नहीं)
-function loadNotesMerged() {
+// 🃏 cards/quizzes/mindmaps विशेष: device items रखो, bundled के missing-id items जोड़ो (कभी delete नहीं)
+function loadMerged(defKey) {
   let cur = []
   try {
-    const raw = localStorage.getItem('sb_notes')
+    const raw = localStorage.getItem('sb_' + defKey)
     const v = raw ? JSON.parse(raw) : undefined
     if (Array.isArray(v)) cur = v
   } catch {}
-  const def = DEF.notes || []
+  const def = DEF[defKey] || []
   const have = new Set(cur.map(n => (n && n.id)))
   const add = def.filter(n => n && !have.has(n.id))
   if (add.length) {
     const merged = [...cur, ...add]
-    try { localStorage.setItem('sb_notes', JSON.stringify(merged)) } catch {}
+    try { localStorage.setItem('sb_' + defKey, JSON.stringify(merged)) } catch {}
     return merged
   }
   return cur.length ? cur : def
+}
+
+// 📝 Notes विशेष: device notes रखो, bundled के missing-id notes जोड़ दो (कभी delete नहीं)
+function loadNotesMerged() {
+  return loadMerged('notes')
 }
 
 function load(key, fallback) {
@@ -62,11 +67,11 @@ export function StoreProvider({ children }) {
   const [lang, setLang] = useState(() => load('lang', 'hi'))
   // पहले seeds → अब bundled defaults उपयोग; लेकिन device data सबसे ऊपर
   const [notes, setNotes] = useState(loadNotesMerged)
-  const [quizzes, setQuizzes] = useState(() => loadOrDef('quizzes', 'quizzes'))
-  const [cards, setCards] = useState(() => loadOrDef('cards', 'cards'))
+  const [quizzes, setQuizzes] = useState(() => loadMerged('quizzes'))
+  const [cards, setCards] = useState(() => loadMerged('cards'))
   const [subjects, setSubjects] = useState(() => loadOrDef('subjects', 'subjects'))
   const [plans, setPlans] = useState(() => load('plans', []))
-  const [mindmaps, setMindmaps] = useState(() => loadOrDef('mindmaps', 'mindmaps'))
+  const [mindmaps, setMindmaps] = useState(() => loadMerged('mindmaps'))
   const [mmRevise, setMMRevise] = useState(() => load('mmrevise', {}))
   const [qna, setQna] = useState(() => loadOrDef('qna', 'qna'))
   // 📘 Long Answer Bank: topic-wise full board-style long answers
