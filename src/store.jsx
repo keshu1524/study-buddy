@@ -17,6 +17,25 @@ function loadOrDef(key, defKey) {
   return DEF[defKey] || []
 }
 
+// 📝 Notes विशेष: device notes रखो, bundled के missing-id notes जोड़ दो (कभी delete नहीं)
+function loadNotesMerged() {
+  let cur = []
+  try {
+    const raw = localStorage.getItem('sb_notes')
+    const v = raw ? JSON.parse(raw) : undefined
+    if (Array.isArray(v)) cur = v
+  } catch {}
+  const def = DEF.notes || []
+  const have = new Set(cur.map(n => (n && n.id)))
+  const add = def.filter(n => n && !have.has(n.id))
+  if (add.length) {
+    const merged = [...cur, ...add]
+    try { localStorage.setItem('sb_notes', JSON.stringify(merged)) } catch {}
+    return merged
+  }
+  return cur.length ? cur : def
+}
+
 function load(key, fallback) {
   try {
     const raw = localStorage.getItem('sb_' + key)
@@ -42,7 +61,7 @@ export function StoreProvider({ children }) {
 
   const [lang, setLang] = useState(() => load('lang', 'hi'))
   // पहले seeds → अब bundled defaults उपयोग; लेकिन device data सबसे ऊपर
-  const [notes, setNotes] = useState(() => loadOrDef('notes', 'notes'))
+  const [notes, setNotes] = useState(loadNotesMerged)
   const [quizzes, setQuizzes] = useState(() => loadOrDef('quizzes', 'quizzes'))
   const [cards, setCards] = useState(() => loadOrDef('cards', 'cards'))
   const [subjects, setSubjects] = useState(() => loadOrDef('subjects', 'subjects'))
