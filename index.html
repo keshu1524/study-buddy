@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Study Buddy — स्टडी बडी 📚</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <meta name="theme-color" content="#111827" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Study Buddy" />
+    <meta name="description" content="Class 11 Study Buddy — notes, quiz, flashcards, long answers, mock test (BSEB bilingual study app)" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <!-- 🛡 watchdog (ES5 — हर browser में चलेगा): 5s में app ना खुले तो screen पर वजह दिखाओ -->
+    <script>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          try {
+            var r = document.getElementById('root');
+            if (r && r.childElementCount === 0) {
+              r.innerHTML =
+                '<div style="font-family:system-ui;max-width:340px;margin:60px auto;padding:18px;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.12);text-align:center">' +
+                '<div style="font-size:34px">📱⚠️</div>' +
+                '<h3 style="margin:10px 0 6px;color:#111827">App अभी खुला नहीं</h3>' +
+                '<p style="color:#475569;font-size:14px;line-height:1.5">आपके phone का <b>browser पुराना</b> हो सकता है।<br>' +
+                'Play Store से <b>Chrome update</b> करो,<br>या <b>dusra browser</b> (Firefox/Edge) में यही link खोलो।</p>' +
+                '<p style="color:#94a3b8;font-size:12px;margin-top:10px">Study Buddy v2 · अगर अपडेट के बाद भी न खुले तो screenshot भेजो</p>' +
+                '</div>';
+            }
+          } catch (e) {}
+        }, 5000);
+      });
+    </script>
+  </body>
+</html>

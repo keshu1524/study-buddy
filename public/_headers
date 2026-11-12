@@ -1,0 +1,3 @@
+# Netlify headers: index.html हमेशा ताज़ा (phone browsers का जुनूनी cache काटो)
+/index.html
+  Cache-Control: no-cache, must-revalidate
